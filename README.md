@@ -2,6 +2,7 @@
 
 
 Folders Description:
+
 WCL: It contains all the files for hypernym extraction
 
 
