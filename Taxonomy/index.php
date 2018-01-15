@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
@@ -13,12 +14,13 @@
 }
 
 .node text {
-  font: 12px sans-serif;
+  font: 7px sans-serif;
 }
 
 .link {
   fill: none;
   stroke: #ccc;
+  stroke-opacity: .6;
   stroke-width: 1.5px;
 }
 
@@ -34,7 +36,7 @@
 }
 
 ul.select2-results {
- max-height: 100px;
+ max-height: 90px;
 }
 
 .select2-container,
@@ -50,10 +52,19 @@ ul.select2-results {
 
 </style>
 <body>
+
+ <?php 
+echo "Search"; 
+?>
+
 <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.css"></link>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
+
+
+<script src="nodes.js"></script>
+
 
 <div id="block_container">
    <div id="searchName"></div>
@@ -160,9 +171,9 @@ $("#searchName").on("select2-selecting", function(e) {
 })
 
 //===============================================
-var margin = {top: 10, right: 120, bottom: 20, left: 120},
-    width = 1200 - margin.right - margin.left,
-    height = 850 - margin.top - margin.bottom;
+var margin = {top: 10, right: 120, bottom: 10, left: 120},
+    width = 9000 - margin.right - margin.left,
+    height = 900 - margin.top - margin.bottom;
     
 var i = 0,
     duration = 750,
@@ -180,10 +191,35 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+// build the arrow.
+svg.append("svg:defs").selectAll("marker")
+    .data(["end"])      // Different link/path types can be defined here
+  .enter().append("svg:marker")    // This section adds in the arrows
+    .attr("id", String)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -1.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+  .append("svg:path")
+    .attr("d", "M0,-5L10,0L0,5");
+
+
+
+
+
+
+
 d3.json("heads_taxonomy.json", function(error, flare) {
   root = flare;
   root.x0 = height / 2;
   root.y0 = 0;
+
+
+
+
 
   select2Data = [];
   selectData(root);
@@ -219,7 +255,7 @@ d3.json("heads_taxonomy.json", function(error, flare) {
   update(root);
 });
 
-d3.select(self.frameElement).style("height", "1000px");
+d3.select(self.frameElement).style("height", "600px");
 
 function update(source) {
 
@@ -294,7 +330,7 @@ function update(source) {
 
   // Adding new links at the parent's previous position.
   link.enter().insert("path", "g")
-      .attr("class", "link")
+      .attr("class", "link").attr("marker-end", "url(#end)")
       .attr("d", function(d) {
         var o = {x: source.x0, y: source.y0};
         return diagonal({source: o, target: o});
@@ -328,3 +364,4 @@ function update(source) {
 </script>
 
 </body>
+

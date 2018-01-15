@@ -4,7 +4,9 @@
 
 Files description:
 
-index.html: contains codes of the core part of the system in html, css and javascript
+index.php: contains codes of the core part of the system in order to display graph in ajax, javascript and php
+
+nodes.js: contains function for generating tree and search 
 
 heads_taxonomy.json: contains all the data used for the system.
 
@@ -12,16 +14,17 @@ heads_taxonomy.json: contains all the data used for the system.
 
 Setup instruction: 
 
-Mozilla Firefox:
+Step:1 Copy the taxonomy folder in apache htdocs folder
 
-click on 'index.html' to run the system
+Step: 2     On the browser, run http://localhost:80/Taxonomy/
 
-Chrome:
-1- from command prompt, go to the directory of 'Taxonomy'
-2- type the following command:
- python -m http.server
-3. From browser: type the following to run the system
-http://localhost:8000/
+
+
+Alternative approach:
+
+Install XAMPP and run Apache.
+
+On the browser, run http://localhost:80/Taxonomy/
 
 Note: The system is not compatible with INTERNET Explorer
 
